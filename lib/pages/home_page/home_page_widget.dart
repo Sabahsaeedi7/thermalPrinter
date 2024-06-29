@@ -87,9 +87,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         List.generate(random_data.randomInteger(5, 10),
                                 (index) => random_data.randomName(true, false))
                             .toList(),
-                        List.generate(random_data.randomInteger(5, 5),
-                                (index) => random_data.randomInteger(1, 10))
-                            .toList(),
+                        _model.qty.toList(),
                         List.generate(random_data.randomInteger(10, 20),
                                 (index) => random_data.randomDouble(1.0, 120.0))
                             .toList(),
