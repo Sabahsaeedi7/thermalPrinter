@@ -144,35 +144,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ),
                 ),
-                Container(
-                  decoration: const BoxDecoration(),
-                ),
-                Builder(
-                  builder: (context) {
-                    if (_model.pdftoview != null &&
-                        (_model.pdftoview?.bytes?.isNotEmpty ?? false)) {
-                      return Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: FlutterFlowPdfViewer(
-                          fileBytes: _model.pdftoview?.bytes,
-                          width: valueOrDefault<double>(
-                            _model.pdftoview?.width,
-                            0.0,
-                          ),
-                          height: 443.0,
-                          horizontalScroll: false,
-                        ),
-                      );
-                    } else {
-                      return Text(
-                        'Nopdf',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              letterSpacing: 0.0,
-                            ),
-                      );
-                    }
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: FlutterFlowPdfViewer(
+                    fileBytes: _model.pdftoview?.bytes,
+                    width: valueOrDefault<double>(
+                      _model.pdftoview?.width,
+                      253.0,
+                    ),
+                    height: 443.0,
+                    horizontalScroll: false,
+                  ),
                 ),
               ].divide(const SizedBox(height: 25.0)),
             ),
