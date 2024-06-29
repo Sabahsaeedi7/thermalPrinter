@@ -144,18 +144,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: FlutterFlowPdfViewer(
-                    fileBytes: _model.pdftoview?.bytes,
-                    width: valueOrDefault<double>(
-                      _model.pdftoview?.width,
-                      253.0,
+                if (_model.toPrint != null &&
+                    (_model.toPrint?.bytes?.isNotEmpty ?? false))
+                  Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: FlutterFlowPdfViewer(
+                      fileBytes: _model.pdftoview?.bytes,
+                      width: valueOrDefault<double>(
+                        _model.pdftoview?.width,
+                        253.0,
+                      ),
+                      height: 443.0,
+                      horizontalScroll: false,
                     ),
-                    height: 443.0,
-                    horizontalScroll: false,
                   ),
-                ),
               ].divide(const SizedBox(height: 25.0)),
             ),
           ),
