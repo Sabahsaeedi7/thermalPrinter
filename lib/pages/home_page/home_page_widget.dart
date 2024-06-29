@@ -84,9 +84,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         'jamal',
                         'fgdhggfhfh',
                         '654678678676',
-                        List.generate(random_data.randomInteger(5, 10),
-                                (index) => random_data.randomName(true, false))
-                            .toList(),
+                        List.generate(
+                            random_data.randomInteger(5, 10),
+                            (index) => random_data.randomString(
+                                  1,
+                                  20,
+                                  true,
+                                  true,
+                                  false,
+                                )).toList(),
                         _model.qty.toList(),
                         List.generate(random_data.randomInteger(10, 20),
                                 (index) => random_data.randomDouble(1.0, 120.0))
@@ -105,7 +111,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         false,
                         1212,
                         List.generate(random_data.randomInteger(5, 7),
-                                (index) => random_data.randomDouble(1.0, 120.0))
+                                (index) => random_data.randomDouble(1.25, 25.0))
                             .toList(),
                         58000.36,
                         59000.58,
