@@ -1,3 +1,4 @@
+import '/flutter_flow/flutter_flow_pdf_viewer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -71,53 +72,47 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   alignment: const AlignmentDirectional(0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      _model.gotoprint =
-                          await actions.thermalPrinterEnAr80mmPDF(
-                        'https://s.tmimgcdn.com/scr/1200x750/266400/restaurant-logo-auf-weissem-hintergrund_266438-original.jpg',
-                        'gfdgdg',
-                        'gfdgd',
-                        'gfdgd',
-                        'gdfg',
-                        'gfdgdgd',
-                        'gfdgdg',
-                        'fgdgdgd',
-                        'gfdgdg',
-                        'gfdgdgd',
-                        '64864646768',
-                        List.generate(
-                            random_data.randomInteger(5, 10),
-                            (index) => random_data.randomString(
-                                  5,
-                                  10,
-                                  true,
-                                  false,
-                                  false,
-                                )).toList(),
-                        List.generate(random_data.randomInteger(2, 4),
-                                (index) => random_data.randomInteger(25, 100))
+                      _model.toPrint = await actions.thermal80mmPDF(
+                        'https://png.pngtree.com/element_our/20200702/ourmid/pngtree-vector-illustration-fork-spoon-chef-hat-restaurant-logo-image_2283563.jpg',
+                        'Slemani',
+                        'bazar',
+                        '04545445458578',
+                        '074725787',
+                        '54545',
+                        'soran',
+                        '04454545',
+                        'jamal',
+                        'fgdhggfhfh',
+                        '654678678676',
+                        List.generate(random_data.randomInteger(5, 10),
+                                (index) => random_data.randomName(true, false))
                             .toList(),
-                        List.generate(random_data.randomInteger(10, 20),
-                                (index) => random_data.randomDouble(2.0, 10.0))
+                        List.generate(random_data.randomInteger(5, 3),
+                                (index) => random_data.randomInteger(5, 100))
                             .toList(),
-                        List.generate(
-                            random_data.randomInteger(5, 10),
-                            (index) =>
-                                random_data.randomDouble(25.0, 200.0)).toList(),
-                        2500.00,
-                        2500.00,
-                        2500.00,
-                        25,
-                        'jhgjg',
-                        true,
-                        76767,
-                        List.generate(
-                            random_data.randomInteger(5, 10),
-                            (index) =>
-                                random_data.randomDouble(25.0, 500.0)).toList(),
-                        2500.00,
-                        00.0,
+                        List.generate(random_data.randomInteger(5, 7),
+                                (index) => random_data.randomDouble(1.0, 120.0))
+                            .toList(),
+                        List.generate(random_data.randomInteger(5, 7),
+                                (index) => random_data.randomDouble(1.0, 120.0))
+                            .toList(),
+                        valueOrDefault<double>(
+                          random_data.randomDouble(1.0, 120.0),
+                          0.0,
+                        ),
+                        7500.25,
+                        8500.3,
+                        65,
+                        'goooo',
+                        false,
+                        1212,
+                        List.generate(random_data.randomInteger(5, 7),
+                                (index) => random_data.randomDouble(1.0, 120.0))
+                            .toList(),
+                        58000.36,
+                        59000.58,
                       );
-                      _model.pdftoview = _model.gotoprint;
+                      _model.pdftoview = _model.toPrint;
                       setState(() {});
 
                       setState(() {});
@@ -148,15 +143,35 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 Container(
                   decoration: const BoxDecoration(),
                 ),
-                Text(
-                  valueOrDefault<String>(
-                    _model.pdftoview?.width?.toString(),
-                    '0',
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
-                        letterSpacing: 0.0,
-                      ),
+                Builder(
+                  builder: (context) {
+                    if (_model.pdftoview != null &&
+                        (_model.pdftoview?.bytes?.isNotEmpty ?? false)) {
+                      return Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: FlutterFlowPdfViewer(
+                          fileBytes: _model.pdftoview?.bytes,
+                          width: valueOrDefault<double>(
+                            _model.pdftoview?.width,
+                            0.0,
+                          ),
+                          height: valueOrDefault<double>(
+                            _model.pdftoview?.height,
+                            0.0,
+                          ),
+                          horizontalScroll: true,
+                        ),
+                      );
+                    } else {
+                      return Text(
+                        'Nopdf',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Readex Pro',
+                              letterSpacing: 0.0,
+                            ),
+                      );
+                    }
+                  },
                 ),
               ].divide(const SizedBox(height: 25.0)),
             ),

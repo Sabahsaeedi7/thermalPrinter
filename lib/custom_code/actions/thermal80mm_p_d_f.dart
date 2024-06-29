@@ -6,15 +6,12 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'dart:convert';
-import 'dart:typed_data';
-import 'package:http/http.dart' as http;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:esc_pos_printer/esc_pos_printer.dart';
-import 'package:esc_pos_utils/esc_pos_utils.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:http/http.dart' as http;
 
-Future<FFUploadedFile> thermalPrinterEnAr80mmPDF(
+Future<FFUploadedFile> thermal80mmPDF(
   String? logoUrl,
   String companyNameEn,
   String address,
@@ -41,25 +38,29 @@ Future<FFUploadedFile> thermalPrinterEnAr80mmPDF(
   double? paidAmount,
   double? unPaidAmount,
 ) async {
-  final pdf = pw.Document();
+  // Add your function code here!
+// Add your function code here!
 
-  // Fetch the logo image
+  final pdf = pw.Document();
+  // Fetching the image from the provided URL
   final response = await http.get(Uri.parse(logoUrl!));
   if (response.statusCode != 200) {
     throw Exception('Failed to load image: ${response.statusCode}');
   }
   final Uint8List logoBytes = response.bodyBytes;
 
-  // Validate item lists are not null
+  /////// REST OF YOUR FUNCTION CODE ///////
+
+  /////// TABLE DATA ///////
+  // Ensure that none of the lists are null
   if (itemsNameList == null ||
       itemsQtyList == null ||
       itemsPriceList == null ||
       itemsDiscountList == null ||
       itemsTotalList == null) {
+    // Return empty PDF if any of the lists are null
     return const FFUploadedFile();
   }
-
-  // Prepare table data
   final tableData = <List<dynamic>>[];
   for (int i = 0; i < itemsNameList.length; i++) {
     tableData.add([
@@ -381,9 +382,20 @@ Future<FFUploadedFile> thermalPrinterEnAr80mmPDF(
     ),
   );
 
-  // Save the PDF
   final Uint8List pdfBytes = await pdf.save();
+/*
+/////// PRINT ///////
+  final directprintPlugin = Directprint();
 
-  // Return the PDF as an FFUploadedFile
-  return FFUploadedFile(bytes: pdfBytes, name: "invoice.pdf");
+  // ...
+
+  Uint8List enctxt = pdfBytes;
+
+  String printer = 'EPSON TM-T88V Receipt';
+  String job = 'Invoice';
+
+  String dpResult = await directprintPlugin.print(printer, job, enctxt) ?? '';
+  /////// PRINT /////// END
+*/
+  return FFUploadedFile(bytes: pdfBytes, name: "invoice" + ".pdf");
 }

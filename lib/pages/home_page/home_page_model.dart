@@ -10,8 +10,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Custom Action - thermalPrinterEnAr80mmPDF] action in Button widget.
-  FFUploadedFile? gotoprint;
+  // Stores action output result for [Custom Action - thermal80mmPDF] action in Button widget.
+  FFUploadedFile? toPrint;
 
   @override
   void initState(BuildContext context) {}
