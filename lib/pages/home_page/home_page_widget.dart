@@ -118,6 +118,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         2500.00,
                         00.0,
                       );
+                      _model.pdftoview = _model.gotoprint;
+                      setState(() {});
 
                       setState(() {});
                     },
@@ -147,7 +149,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 Padding(
                   padding: const EdgeInsets.all(6.0),
                   child: FlutterFlowPdfViewer(
-                    fileBytes: _model.gotoprint?.bytes,
+                    fileBytes: _model.pdftoview?.bytes,
                     height: 583.0,
                     horizontalScroll: false,
                   ),
