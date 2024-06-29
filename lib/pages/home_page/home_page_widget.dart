@@ -1,4 +1,3 @@
-import '/flutter_flow/flutter_flow_pdf_viewer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -146,13 +145,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: FlutterFlowPdfViewer(
-                    fileBytes: _model.pdftoview?.bytes,
-                    height: 583.0,
-                    horizontalScroll: false,
+                Container(
+                  decoration: const BoxDecoration(),
+                ),
+                Text(
+                  valueOrDefault<String>(
+                    _model.pdftoview?.width?.toString(),
+                    '0',
                   ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        letterSpacing: 0.0,
+                      ),
                 ),
               ].divide(const SizedBox(height: 25.0)),
             ),
