@@ -154,10 +154,48 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         _model.pdftoview?.width,
                         253.0,
                       ),
-                      height: 443.0,
+                      height: 428.0,
                       horizontalScroll: false,
                     ),
                   ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.memory(
+                    _model.gogo?.bytes ?? Uint8List.fromList([]),
+                    width: 300.0,
+                    height: 200.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                FFButtonWidget(
+                  onPressed: () async {
+                    _model.gogo = await actions.convertPdfToImage(
+                      _model.pdftoview!,
+                    );
+
+                    setState(() {});
+                  },
+                  text: 'ToImage',
+                  options: FFButtonOptions(
+                    height: 40.0,
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primary,
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Readex Pro',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                        ),
+                    elevation: 3.0,
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
               ].divide(const SizedBox(height: 25.0)),
             ),
           ),

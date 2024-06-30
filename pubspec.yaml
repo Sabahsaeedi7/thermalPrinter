@@ -45,6 +45,8 @@ dependencies:
   path_provider_foundation: 2.4.0
   path_provider_platform_interface: 2.1.2
   pdf: ^3.8.4
+  pdf_image_renderer: ^0.7.0
+  pdf_render: ^1.4.10
   pdfx: 2.6.0
   provider: 6.1.2
   shared_preferences: 2.2.2

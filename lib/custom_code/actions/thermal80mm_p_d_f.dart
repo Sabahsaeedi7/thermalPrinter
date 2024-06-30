@@ -6,10 +6,16 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
+
+import 'dart:math';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
+import 'package:pdf_image_renderer/pdf_image_renderer.dart';
 
 Future<FFUploadedFile> thermal80mmPDF(
   String? logoUrl,
@@ -383,6 +389,12 @@ Future<FFUploadedFile> thermal80mmPDF(
   );
 
   final Uint8List pdfBytes = await pdf.save();
+  final tempDir = await getTemporaryDirectory();
+  final tempFile = File('${tempDir.path}/temp.pdf');
+  await tempFile.writeAsBytes(pdfBytes);
+
+  final pdfconvToImage = PdfImageRendererPdf(path: '${tempDir.path}/temp.pdf');
+
 /*
 /////// PRINT ///////
   final directprintPlugin = Directprint();
