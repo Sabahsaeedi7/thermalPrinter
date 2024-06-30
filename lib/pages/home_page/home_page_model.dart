@@ -20,6 +20,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - thermal80mmPDF] action in Button widget.
   FFUploadedFile? toPrint;
+  // Stores action output result for [Custom Action - convertPdfToImage] action in Button widget.
+  FFUploadedFile? pofff;
 
   @override
   void initState(BuildContext context) {}

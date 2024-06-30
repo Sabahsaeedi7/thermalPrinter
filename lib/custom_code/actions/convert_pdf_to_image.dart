@@ -9,16 +9,13 @@ import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf_image_renderer/pdf_image_renderer.dart';
-// Add this for Colors
-
-class FFUploadedFile {
-  final String name;
-  final String path;
-  final Uint8List bytes;
-
-  FFUploadedFile({required this.name, required this.path, required this.bytes});
-}
+import 'package:pdfx/pdfx.dart';
+import 'package:flutter/material.dart'; // Add this for Colors
+import 'dart:typed_data';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdfx/pdfx.dart';
+import 'package:flutter/material.dart'; // Add this for Colors
 
 Future<FFUploadedFile> convertPdfToImage(FFUploadedFile pdfFile) async {
   try {
@@ -29,32 +26,27 @@ Future<FFUploadedFile> convertPdfToImage(FFUploadedFile pdfFile) async {
         File('${tempDir.path}/temp.png'); // Adjust image format if needed
 
     // 2. Write PDF bytes to the temporary PDF file
-    await tempPdfFile.writeAsBytes(pdfFile.bytes);
+    await tempPdfFile.writeAsBytes(pdfFile.bytes as List<int>);
 
-    // 3. Initialize renderer with temporary PDF file path
-    final pdf = PdfImageRendererPdf(path: tempPdfFile.path);
-    await pdf.open();
+    // 3. Load the PDF document
+    final pdfDocument = await PdfDocument.openFile(tempPdfFile.path);
 
-    // 4. Get page size (assuming you want the first page)
-    final size = await pdf.getPageSize(pageIndex: 0);
+    // 4. Get the first page
+    final page = await pdfDocument.getPage(1);
 
-    // 5. Render the page
-    final img = await pdf.renderPage(
-      pageIndex: 0,
-      x: 0,
-      y: 0,
-      width: size.width,
-      height: size.height,
-      scale: 1,
-      background: Colors.white,
+    // 5. Render the page to an image
+    final pageImage = await page.render(
+      width: page.width,
+      height: page.height,
+      format: PdfPageImageFormat.png,
     );
 
     // 6. Save the rendered image to the temporary image file
-    await tempImageFile.writeAsBytes(img!);
+    await tempImageFile.writeAsBytes(pageImage!.bytes);
 
-    // 7. Close resources
-    await pdf.closePage(pageIndex: 0);
-    pdf.close();
+    // 7. Dispose resources
+    await page.close();
+    await pdfDocument.close();
 
     // 8. Read the bytes from the temporary image file
     final imageBytes = await tempImageFile.readAsBytes();
@@ -66,7 +58,6 @@ Future<FFUploadedFile> convertPdfToImage(FFUploadedFile pdfFile) async {
     // 10. Return the FFUploadedFile object with image data
     return FFUploadedFile(
       name: 'temp.png',
-      path: tempImageFile.path,
       bytes: imageBytes,
     );
   } catch (e) {
