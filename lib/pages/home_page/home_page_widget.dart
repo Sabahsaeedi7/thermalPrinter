@@ -48,7 +48,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            'Page Title',
+            valueOrDefault<String>(
+              _model.pofff?.height?.toString(),
+              '0',
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
@@ -64,64 +67,122 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           top: true,
           child: Align(
             alignment: const AlignmentDirectional(0.0, 0.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      _model.toPrint = await actions.thermal80mmPDF(
-                        'https://png.pngtree.com/element_our/20200702/ourmid/pngtree-vector-illustration-fork-spoon-chef-hat-restaurant-logo-image_2283563.jpg',
-                        'Slemani',
-                        'bazar',
-                        '04545445458578',
-                        '074725787',
-                        '54545',
-                        'soran',
-                        '04454545',
-                        'jamal',
-                        'fgdhggfhfh',
-                        '654678678676',
-                        List.generate(
-                            random_data.randomInteger(5, 10),
-                            (index) => random_data.randomString(
-                                  1,
-                                  20,
-                                  true,
-                                  true,
-                                  false,
-                                )).toList(),
-                        _model.qty.toList(),
-                        List.generate(random_data.randomInteger(10, 20),
-                                (index) => random_data.randomDouble(1.0, 120.0))
-                            .toList(),
-                        List.generate(random_data.randomInteger(5, 10),
-                                (index) => random_data.randomDouble(1.0, 120.0))
-                            .toList(),
-                        valueOrDefault<double>(
-                          random_data.randomDouble(1.0, 120.0),
-                          0.0,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (_model.toPrint != null &&
+                          (_model.toPrint?.bytes?.isNotEmpty ?? false))
+                        Padding(
+                          padding: const EdgeInsets.all(18.0),
+                          child: FlutterFlowPdfViewer(
+                            fileBytes: _model.pdftoview?.bytes,
+                            width: valueOrDefault<double>(
+                              _model.pdftoview?.width,
+                              350.0,
+                            ),
+                            height: 552.0,
+                            horizontalScroll: false,
+                          ),
                         ),
-                        7500.25,
-                        8500.3,
-                        65,
-                        'goooo',
-                        false,
-                        1212,
-                        List.generate(random_data.randomInteger(5, 7),
-                                (index) => random_data.randomDouble(1.25, 25.0))
-                            .toList(),
-                        58000.36,
-                        59000.58,
+                    ],
+                  ),
+                  Align(
+                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        _model.toPrint = await actions.thermal80mmPDF(
+                          'https://png.pngtree.com/element_our/20200702/ourmid/pngtree-vector-illustration-fork-spoon-chef-hat-restaurant-logo-image_2283563.jpg',
+                          'Slemani',
+                          'bazar',
+                          '04545445458578',
+                          '074725787',
+                          '54545',
+                          'soran',
+                          '04454545',
+                          'jamal',
+                          'fgdhggfhfh',
+                          '654678678676',
+                          List.generate(
+                              random_data.randomInteger(5, 10),
+                              (index) => random_data.randomString(
+                                    1,
+                                    20,
+                                    true,
+                                    true,
+                                    false,
+                                  )).toList(),
+                          _model.qty.toList(),
+                          List.generate(
+                                  random_data.randomInteger(10, 20),
+                                  (index) =>
+                                      random_data.randomDouble(1.0, 120.0))
+                              .toList(),
+                          List.generate(
+                                  random_data.randomInteger(5, 10),
+                                  (index) =>
+                                      random_data.randomDouble(1.0, 120.0))
+                              .toList(),
+                          valueOrDefault<double>(
+                            random_data.randomDouble(1.0, 120.0),
+                            0.0,
+                          ),
+                          7500.25,
+                          8500.3,
+                          65,
+                          'goooo',
+                          false,
+                          1212,
+                          List.generate(
+                                  random_data.randomInteger(5, 7),
+                                  (index) =>
+                                      random_data.randomDouble(1.25, 25.0))
+                              .toList(),
+                          58000.36,
+                          59000.58,
+                        );
+                        _model.pdftoview = _model.toPrint;
+                        setState(() {});
+
+                        setState(() {});
+                      },
+                      text: 'PDF',
+                      options: FFButtonOptions(
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Readex Pro',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 3.0,
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      _model.pofff = await actions.convertPdfToImage(
+                        _model.pdftoview!,
                       );
-                      _model.pdftoview = _model.toPrint;
-                      setState(() {});
 
                       setState(() {});
                     },
-                    text: 'Print',
+                    text: 'print',
                     options: FFButtonOptions(
                       height: 40.0,
                       padding:
@@ -143,51 +204,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                ),
-                if (_model.toPrint != null &&
-                    (_model.toPrint?.bytes?.isNotEmpty ?? false))
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: FlutterFlowPdfViewer(
-                      fileBytes: _model.pdftoview?.bytes,
-                      width: valueOrDefault<double>(
-                        _model.pdftoview?.width,
-                        350.0,
-                      ),
-                      height: 552.0,
-                      horizontalScroll: false,
-                    ),
-                  ),
-                FFButtonWidget(
-                  onPressed: () async {
-                    _model.pofff = await actions.convertPdfToImage(
-                      _model.pdftoview!,
-                    );
-
-                    setState(() {});
-                  },
-                  text: 'Button',
-                  options: FFButtonOptions(
-                    height: 40.0,
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Readex Pro',
-                          color: Colors.white,
-                          letterSpacing: 0.0,
-                        ),
-                    elevation: 3.0,
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ].divide(const SizedBox(height: 25.0)),
+                ].divide(const SizedBox(height: 25.0)),
+              ),
             ),
           ),
         ),
