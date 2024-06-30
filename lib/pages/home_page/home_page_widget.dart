@@ -97,7 +97,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         _model.toPrint = await actions.thermal80mmPDF(
-                          'https://png.pngtree.com/element_our/20200702/ourmid/pngtree-vector-illustration-fork-spoon-chef-hat-restaurant-logo-image_2283563.jpg',
+                          'https://st2.depositphotos.com/1006488/8030/v/450/depositphotos_80307520-stock-illustration-lion-head-silhouette.jpg',
                           'Slemani',
                           'bazar',
                           '04545445458578',
