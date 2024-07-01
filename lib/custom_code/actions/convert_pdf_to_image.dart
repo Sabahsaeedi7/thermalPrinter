@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:typed_data';
+
 import 'package:image/image.dart';
 import 'package:esc_pos_printer/esc_pos_printer.dart';
 
@@ -51,22 +53,21 @@ Future<FFUploadedFile> convertPdfToImage(FFUploadedFile pdfFile) async {
 
     // 8. Read the bytes from the temporary image file
     final Uint8List imageBytes = await tempImageFile.readAsBytes();
-
+    List<int> bytesToprint = [];
     // 9. Print the image using a thermal printer
     final profile = await CapabilityProfile.load();
     final generator = Generator(PaperSize.mm80, profile);
     final image = decodeImage(imageBytes)!;
-    List<int> bytes = [];
+    bytesToprint += generator.image(image);
+    bytesToprint += generator.feed(1);
+    bytesToprint += generator.cut();
     // Connect to the printer and print the data
-    final printer = NetworkPrinter(PaperSize.mm80, profile);
-    final result = await printer.connect('192.168.178.60', port: 9100);
-    if (result == PosPrintResult.success) {
-      bytes += generator.image(image);
-      bytes += generator.feed(2);
-      bytes += generator.cut();
-    } else {
-      print('Could not connect to printer: $result');
-    }
+    const int port = 9100; // Default port for many network printers
+    final socket = await Socket.connect('192.168.178.60', port);
+    Uint8List byteData = Uint8List.fromList(bytesToprint);
+    socket.add(byteData);
+    await socket.flush();
+    socket.destroy();
 
     // 10. Delete the temporary PDF and image files (image bytes are what we return)
     await tempPdfFile.delete();
