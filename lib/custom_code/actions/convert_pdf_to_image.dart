@@ -15,7 +15,8 @@ import 'package:pdfx/pdfx.dart';
 
 import 'package:esc_pos_utils/esc_pos_utils.dart'; // Import ESC/POS utils
 
-Future<FFUploadedFile> convertPdfToImage(FFUploadedFile pdfFile) async {
+Future<FFUploadedFile> convertPdfToImage(
+    FFUploadedFile pdfFile, String printerIP) async {
   try {
     // 1. Create temporary files for PDF and image
     final tempDir = await getTemporaryDirectory();
@@ -67,7 +68,7 @@ Future<FFUploadedFile> convertPdfToImage(FFUploadedFile pdfFile) async {
     bytesToprint += generator.cut();
     // Connect to the printer and print the data
     const int port = 9100; // Default port for many network printers
-    final socket = await Socket.connect('192.168.178.60', port);
+    final socket = await Socket.connect(printerIP, port);
     Uint8List byteData = Uint8List.fromList(bytesToprint);
     socket.add(byteData);
     await socket.flush();
