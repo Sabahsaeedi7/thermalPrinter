@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -54,6 +54,8 @@ Future<FFUploadedFile> thermal80mmPDF(
     throw Exception('Failed to load image: ${response.statusCode}');
   }
   final Uint8List logoBytes = response.bodyBytes;
+  final arabicFont = await rootBundle.load('assets/fonts/Amiri-Bold.ttf');
+  final arabicFontTtf = pw.Font.ttf(arabicFont);
 
   /////// REST OF YOUR FUNCTION CODE ///////
 
@@ -134,11 +136,10 @@ Future<FFUploadedFile> thermal80mmPDF(
               thickness: 0.5,
               color: PdfColors.black,
             ),
-            pw.Text(
-              companyNameEn,
-              style: const pw.TextStyle(fontSize: 8.0),
-              textAlign: pw.TextAlign.center,
-            ),
+            pw.Text(companyNameEn,
+                style: pw.TextStyle(fontSize: 8.0, font: arabicFontTtf),
+                textAlign: pw.TextAlign.center,
+                textDirection: pw.TextDirection.rtl),
             pw.Text(
               address,
               textAlign: pw.TextAlign.center,

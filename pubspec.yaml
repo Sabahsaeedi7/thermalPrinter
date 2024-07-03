@@ -100,6 +100,16 @@ flutter:
     - assets/lottie_animations/
     - assets/rive_animations/
     - assets/pdfs/
+  fonts:
+    - family: 'Amiri serif'
+      fonts:
+        - asset: assets/fonts/Amiri-Regular.ttf
+          style: italic
+        - asset: assets/fonts/Amiri-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Amiri-BoldItalic.ttf
+          weight: 700
+          style: italic
 
   
   # An image asset can refer to one or more resolution-specific "variants", see

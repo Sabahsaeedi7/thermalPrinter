@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'dart:typed_data';
-
 import 'package:image/image.dart';
 import 'package:esc_pos_printer/esc_pos_printer.dart';
 
@@ -36,11 +34,17 @@ Future<FFUploadedFile> convertPdfToImage(FFUploadedFile pdfFile) async {
 
     // 4. Get the first page
     final page = await pdfDocument.getPage(1);
+    const double widthMm = 80.0; // Ensure this is a double
+    final double widthPixels =
+        (widthMm * 72 / 25.4); // approximately 226.77 DPI
 
-    // 5. Render the page to an image
-    final pageImage = await page.render(
-      width: page.width,
-      height: page.height,
+// Calculate the height in pixels to maintain aspect ratio
+    final double heightPixels = page.height * (widthPixels / page.width);
+
+// 5. Render the page to an image
+    final PdfPageImage? pageImage = await page.render(
+      width: widthPixels,
+      height: heightPixels,
       format: PdfPageImageFormat.png,
     );
 

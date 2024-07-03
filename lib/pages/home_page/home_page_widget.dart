@@ -43,26 +43,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          title: Text(
-            valueOrDefault<String>(
-              _model.pofff?.height?.toString(),
-              '0',
-            ),
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
-                  color: Colors.white,
-                  fontSize: 22.0,
-                  letterSpacing: 0.0,
-                ),
-          ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 2.0,
-        ),
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
@@ -72,25 +53,31 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (_model.toPrint != null &&
-                          (_model.toPrint?.bytes?.isNotEmpty ?? false))
-                        Padding(
-                          padding: const EdgeInsets.all(18.0),
-                          child: FlutterFlowPdfViewer(
-                            fileBytes: _model.pdftoview?.bytes,
-                            width: valueOrDefault<double>(
-                              _model.pdftoview?.width,
-                              350.0,
+                  Container(
+                    decoration: const BoxDecoration(),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (_model.toPrint != null &&
+                            (_model.toPrint?.bytes?.isNotEmpty ?? false))
+                          Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: FlutterFlowPdfViewer(
+                              fileBytes: _model.pdftoview?.bytes,
+                              width: valueOrDefault<double>(
+                                _model.pdftoview?.width,
+                                350.0,
+                              ),
+                              height: 442.0,
+                              horizontalScroll: false,
                             ),
-                            height: 552.0,
-                            horizontalScroll: false,
                           ),
-                        ),
-                    ],
+                      ].divide(const SizedBox(width: 5.0)),
+                    ),
                   ),
                   Align(
                     alignment: const AlignmentDirectional(0.0, 0.0),
@@ -152,12 +139,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         setState(() {});
                       },
                       text: 'PDF',
+                      icon: Icon(
+                        Icons.picture_as_pdf,
+                        color: FlutterFlowTheme.of(context).warning,
+                        size: 25.0,
+                      ),
                       options: FFButtonOptions(
+                        width: 200.0,
                         height: 40.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsets.all(4.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -170,7 +162,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           color: Colors.transparent,
                           width: 1.0,
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
                   ),
@@ -183,12 +175,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       setState(() {});
                     },
                     text: 'print',
+                    icon: Icon(
+                      Icons.print,
+                      color: FlutterFlowTheme.of(context).warning,
+                      size: 25.0,
+                    ),
                     options: FFButtonOptions(
+                      width: 200.0,
                       height: 40.0,
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding: const EdgeInsets.all(4.0),
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -201,7 +198,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                 ].divide(const SizedBox(height: 25.0)),
